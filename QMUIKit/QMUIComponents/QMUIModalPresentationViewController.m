@@ -504,7 +504,7 @@
     // makeKeyAndVisible 导致的 viewWillAppear: 必定 animated 是 NO 的，所以这里用额外的变量保存这个 animated 的值
     self.appearAnimated = animated;
     self.appearCompletionBlock = completion;
-    self.previousKeyWindow = UIApplication.sharedApplication.keyWindow;
+    self.previousKeyWindow = [UIWindow qmui_keyWindow];
     if (!self.window) {
         self.window = [[QMUIModalPresentationWindow alloc] init];
         self.window.windowLevel = UIWindowLevelQMUIAlertView;
@@ -513,6 +513,7 @@
     }
     self.window.rootViewController = self;
     [self.window makeKeyAndVisible];
+    [self.previousKeyWindow addSubview:self.window];
 }
 
 - (void)hidingAnimationWithCompletion:(void (^)(BOOL))completion {
