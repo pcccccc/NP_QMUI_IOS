@@ -617,8 +617,9 @@
         QMUICommonViewController *viewController = (QMUICommonViewController *)self.popupWindow.rootViewController;
         viewController.supportedOrientationMask = [QMUIHelper visibleViewController].supportedInterfaceOrientations;
         
-        self.previousKeyWindow = UIApplication.sharedApplication.keyWindow;
+        self.previousKeyWindow = UIWindow.qmui_keyWindow;
         [self.popupWindow makeKeyAndVisible];
+        [UIWindow.qmui_keyWindow addSubview:self.popupWindow];
         
         isShowingByWindowMode = YES;
     } else {
@@ -688,6 +689,8 @@
     } else {
         [self hideCompletionWithWindowMode:isShowingByWindowMode completion:completion];
     }
+    
+    [self.popupWindow removeFromSuperview];
 }
 
 - (void)hideCompletionWithWindowMode:(BOOL)windowMode completion:(void (^)(BOOL))completion {
