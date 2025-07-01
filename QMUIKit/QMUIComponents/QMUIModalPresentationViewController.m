@@ -139,8 +139,6 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.window.frame = UIWindow.qmui_keyWindow.bounds;
-    self.view.frame = self.window.bounds;
     self.dimmingView.frame = self.view.bounds;
     
     CGRect contentViewFrame = [self contentViewFrameForShowing];
