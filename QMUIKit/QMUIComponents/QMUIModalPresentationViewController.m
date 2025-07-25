@@ -139,11 +139,22 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.dimmingView.frame = self.view.bounds;
+    if (self.window) {
+        self.window.frame = UIWindow.qmui_keyWindow.bounds;
+        self.dimmingView.frame = UIWindow.qmui_keyWindow.bounds;
+    }else {
+        self.view.frame = UIWindow.qmui_keyWindow.bounds;
+        self.dimmingView.frame = UIWindow.qmui_keyWindow.bounds;
+    }
+    
     
     CGRect contentViewFrame = [self contentViewFrameForShowing];
     if (self.layoutBlock) {
-        self.layoutBlock(self.view.bounds, self.keyboardHeight, contentViewFrame);
+        if (self.window) {
+            self.layoutBlock(UIWindow.qmui_keyWindow.bounds, self.keyboardHeight, contentViewFrame);
+        }else {
+            self.layoutBlock(self.view.bounds, self.keyboardHeight, contentViewFrame);
+        }
     } else {
         self.contentView.qmui_frameApplyTransform = contentViewFrame;
     }
@@ -819,7 +830,7 @@
             }
         }
     }
-
+    
 }
 
 @end
